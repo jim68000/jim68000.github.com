@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>finger</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Jim Smith">
+	<meta name = "viewport" content = "width = device-width, user-scalable = no">    
+	<!-- Date: 2011-09-14 -->
+	<style type="text/css" media="screen">
+	
+		* {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+		
+		body {
+			background-color: #DDD;
+		}
+	
+		canvas {
+			background-color: #fff;
+			cursor: crosshair;
+			box-shadow: #999 2px 2px 4px;
+		}
+		
+		canvas:active {
+			cursor: crosshair;
+		}
+
+		li {
+			list-style: none;
+			height: 40px;
+			width: 30px;
+			float: left;
+			border: 1px solid #999;
+			
+		}
+		
+		li:active {
+			border: 1px solid #e0e0e0;
+		}
+		
+		ul {
+			
+		}
+		
+		.plusser {
+			float: left;
+			height: 40px;
+			width: 30px;
+			text-align: center;
+			font-size: 250%;
+			padding: 0;
+			border: 1px solid #999;
+			
+		}
+		
+		.plusser:active {
+			border: 1px solid #e0e0e0;			
+		}
+		
+		#drawing {
+			clear: left;
+		}
+		
+		button {
+			padding: 10px;
+			height: 40px;
+			border: 1px solid #ccc;
+			background-color: #DDD;
+			border-radius: 5px;
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefefe), to(#e7e7e7));
+		}
+		
+	</style>
+</head>
+<body>
+	
+	<div id="controls">
+	<ul>
+		<li class='f00'></li>
+		<li class='00f'></li>
+		<li class='0f0'></li>
+		<li class='f80b85'></li>
+		<li class='fff'></li>
+		<li class='000'></li>
+	</ul>
+	<div class="plusser" onclick="DRAWING.amend_stroke_width(2)">
+		+
+	</div>
+	<div class="plusser" onclick="DRAWING.amend_stroke_width(.5)">
+		-
+	</div>
+	<button onclick='console.log(finger.toDataURL())'>
+		Save
+	</button>
+	</div>
+	
+	<div id="drawing">
+		<canvas width="320" height="500" id="finger"></canvas>
+		
+	</div>
+	
+	<script type="text/javascript" charset="utf-8">
+	
+	var DRAWING = (function() {
+		var finger = document.getElementById('finger');
+		var ctx = finger.getContext('2d');
+
+
+		var offtop = finger.offsetTop;
+
+		var str_width = 4;
+		ctx.lineCap = "round";
+		finger.addEventListener("mousedown", moused, true, true);
+		finger.addEventListener("mouseup", mouseu, true, true);
+		finger.addEventListener("mousemove", mousem, true, true);
+
+		finger.addEventListener("touchstart", moused, true, true);
+		finger.addEventListener("touchmove", touchm, true, true);
+
+		finger.addEventListener("touchend", mouseu, true, true);
+
+
+		var lis = document.getElementsByTagName('li');
+
+		for (var i = 0; i < lis.length; i++) {
+			lis[i].style.backgroundColor = "#" + lis[i].className;
+			lis[i].onclick = function() {
+				ctx.strokeStyle =  "#" + this.className;
+			}
+
+			lis[i].touchstart = function() {
+				ctx.strokeStyle =  "#" + this.className;
+			}
+		}
+
+
+		var drawing = false;
+		function moused(ev) {
+			drawing = true;
+			ctx.beginPath();
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+
+		function mouseu(ev) {
+			drawing = false;
+			ctx.closePath();
+			ev.preventDefault();
+
+		}
+
+		function mousem(ev) {
+			if (drawing) {
+				ctx.lineTo(ev.offsetX, ev.offsetY);
+				ctx.stroke();
+			}
+			ev.preventDefault();
+
+		}
+
+
+		function touchm(ev) {
+			if (drawing) {
+				ctx.lineTo(ev.touches[0].pageX, ev.touches[0].pageY - offtop);
+				ctx.stroke();
+			}
+			ev.preventDefault();
+
+		}
+
+		function amend_stroke_width(val) {
+			str_width *= val;
+			ctx.lineWidth = str_width;
+		}
+		
+		return {
+			amend_stroke_width: amend_stroke_width
+		}		
+	})()
+		
+		
+		
+	
+		
+	</script>
+
+</body>
+</html>
