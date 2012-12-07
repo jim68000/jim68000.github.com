@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>untitled</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Jim Smith">
+	<!-- Date: 2012-12-07 -->
+	
+	<style type="text/css" media="screen">
+		html {
+			height: 100%;
+		}
+		
+		body {
+			height: 100%;
+			background-color: #000;
+		}
+		
+		#num {
+			font: 44em "Impact", "Trebuchet MS", Verdana, sans-serif;
+			color: white;
+			text-align: right;
+			width: 70%;
+		}
+	</style>
+	
+</head>
+<body id="bod">
+	
+	<div id="num">
+		click
+	</div>
+<script type="text/javascript" charset="utf-8">
+	var nums = [1, 2, 3, 5, 8, 13, 20, 40, "&#8734;"];
+	
+	var disprand = function() {
+		document.getElementById('num').innerHTML = nums[Math.floor(Math.random() * nums.length)];
+	}
+	
+	var time = 1;
+	var runrand = function() {
+		if (time < 400) {
+			disprand();
+			setTimeout(runrand, time);
+			time *= 1.05;
+		}
+	}
+
+	var st = function() {
+		time = 1;
+		runrand();
+	}
+	
+	document.getElementById('bod').onclick = st;
+	document.getElementById('num').onclick = st;
+	
+</script>
+</body>
+</html>
