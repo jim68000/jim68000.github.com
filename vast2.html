@@ -8,8 +8,10 @@
 
         if (window.XDomainRequest) {
             x = new XDomainRequest();
+            console.log("XDR")
         } else {
             x = new XMLHttpRequest();
+            consoel.log("standrada")
         }
         
         x.onload = function(xml) {
