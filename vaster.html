@@ -21,7 +21,7 @@
         }
         
         x.onload = function(xml) {
-            document.getElementById("result").innerHTML = "Document successfully loaded. Transport used was " + method + ". Document length is " + xml.currentTarget.responseText.length;
+            document.getElementById("result").innerHTML = "Document successfully loaded. Transport used was " + method + ".";
         }
         x.open('get', 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2');
         x.send();
