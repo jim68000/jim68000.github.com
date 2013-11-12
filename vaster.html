@@ -6,16 +6,22 @@
     function getVast() {
         var x;
 
+        var method; 
+
         if (window.XDomainRequest) {
             x = new XDomainRequest();
-            console.log("XDR")
+            method = "XDomainRequest";
         } else {
             x = new XMLHttpRequest();
-            console.log("standrada")
+            method = "XMLHttpRequest"
+        }
+        
+        x.onerror = function(err) {
+            document.getElementById("result").innerHTML = "Document failed. Transport used was " + method + ". Error message is " + err.message;
         }
         
         x.onload = function(xml) {
-            console.log(x.responseText);
+            document.getElementById("result").innerHTML = "Document successfully loaded. Transport used was " + method + ". Document length is " + xml.currentTarget.responseText.length;
         }
         x.open('get', 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2');
         x.send();
