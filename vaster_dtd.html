@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>vast 2</title>
+    <script type="text/javascript" charset="utf-8">
+    function getVast() {
+        var x;
+
+        var method; 
+
+        if (window.XDomainRequest) {
+            x = new XDomainRequest();
+            method = "XDomainRequest";
+        } else {
+            x = new XMLHttpRequest();
+            method = "XMLHttpRequest"
+        }
+        
+        x.onerror = function(err) {
+            document.getElementById("result").innerHTML = "Document failed. Transport used was " + method + ". Error message is " + err.message;
+        }
+        
+        x.onload = function(xml) {
+            document.getElementById("result").innerHTML = "Document successfully loaded. Transport used was " + method + ".";
+        }
+        x.open('get', 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2');
+        x.send();
+    }
+    </script>
+</head>
+<body id="vast" onload="">
+    
+    <div id="result">
+        
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+    setTimeout(function() {
+        getVast();
+    }, 500)
+    </script>
+</body>
+</html>
