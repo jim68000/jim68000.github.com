@@ -19,7 +19,7 @@
         }
         
         x.onerror = function(err) {
-            document.getElementById("result").innerHTML = "Document failed. Transport used was " + method + ". Error message is " + err.message;
+            document.getElementById("result").innerHTML = "Document failed. Transport used was " + method + ". Error message is " + err;
         }
         
         x.onload = function(xml) {
