@@ -22,6 +22,8 @@
             console.dir(err);
         }
         
+        x.ontimeout = function() {};
+        
         x.onprogress = function() {};
         
         x.onload = function(xml) {
